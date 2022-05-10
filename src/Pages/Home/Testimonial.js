@@ -82,7 +82,7 @@ const Testimonial = () => {
           className="mySwiper"
         >
           <SwiperSlide>
-            <div class="card w-96 bg-base-100 shadow-xl">
+            <div class="card w-96 bg-base-100 shadow-xl pb-5">
               <div class="card-body">
                 <p className="text-left mb-2">
                   It is a long established fact that by the readable content of
@@ -97,14 +97,14 @@ const Testimonial = () => {
                   </div>
                   <div className="text-left">
                     <h4 className="text-xl">Winson Herry</h4>
-                    <p>California</p>
+                    <p>London</p>
                   </div>
                 </div>
               </div>
             </div>
           </SwiperSlide>
           <SwiperSlide>
-            <div class="card w-96 bg-base-100 shadow-xl">
+            <div class="card w-96 bg-base-100 shadow-xl pb-5">
               <div class="card-body">
                 <p className="text-left mb-2">
                   It is a long established fact that by the readable content of
@@ -118,7 +118,7 @@ const Testimonial = () => {
                     </div>
                   </div>
                   <div className="text-left">
-                    <h4 className="text-xl">Winson Herry</h4>
+                    <h4 className="text-xl">Jessika</h4>
                     <p>California</p>
                   </div>
                 </div>
@@ -126,7 +126,7 @@ const Testimonial = () => {
             </div>
           </SwiperSlide>
           <SwiperSlide>
-            <div class="card w-96 bg-base-100 shadow-xl">
+            <div class="card w-96 bg-base-100 shadow-xl pb-5">
               <div class="card-body">
                 <p className="text-left mb-2">
                   It is a long established fact that by the readable content of
@@ -140,8 +140,8 @@ const Testimonial = () => {
                     </div>
                   </div>
                   <div className="text-left">
-                    <h4 className="text-xl">Winson Herry</h4>
-                    <p>California</p>
+                    <h4 className="text-xl">Amelia</h4>
+                    <p>New York</p>
                   </div>
                 </div>
               </div>

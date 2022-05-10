@@ -82,16 +82,16 @@ const Testimonial = () => {
           className="mySwiper"
         >
           <SwiperSlide>
-            <div class="card w-96 bg-base-100 shadow-xl pb-5">
-              <div class="card-body">
+            <div className="card w-96 bg-base-100 shadow-xl pb-5">
+              <div className="card-body">
                 <p className="text-left mb-2">
                   It is a long established fact that by the readable content of
                   a lot layout. The point of using Lorem a more-or-less normal
                   distribu to using Content here, content
                 </p>
-                <div class="profile flex items-center">
-                  <div class="avatar">
-                    <div class="w-16 rounded-full ring ring-primary ring-offset-base-100 mr-5">
+                <div className="profile flex items-center">
+                  <div className="avatar">
+                    <div className="w-16 rounded-full ring ring-primary ring-offset-base-100 mr-5">
                       <img src={people1} alt="" />
                     </div>
                   </div>
@@ -104,16 +104,16 @@ const Testimonial = () => {
             </div>
           </SwiperSlide>
           <SwiperSlide>
-            <div class="card w-96 bg-base-100 shadow-xl pb-5">
-              <div class="card-body">
+            <div className="card w-96 bg-base-100 shadow-xl pb-5">
+              <div className="card-body">
                 <p className="text-left mb-2">
                   It is a long established fact that by the readable content of
                   a lot layout. The point of using Lorem a more-or-less normal
                   distribu to using Content here, content
                 </p>
-                <div class="profile flex items-center">
-                  <div class="avatar">
-                    <div class="w-16 rounded-full ring ring-primary ring-offset-base-100 mr-5">
+                <div className="profile flex items-center">
+                  <div className="avatar">
+                    <div className="w-16 rounded-full ring ring-primary ring-offset-base-100 mr-5">
                       <img src={people2} alt="" />
                     </div>
                   </div>
@@ -126,16 +126,16 @@ const Testimonial = () => {
             </div>
           </SwiperSlide>
           <SwiperSlide>
-            <div class="card w-96 bg-base-100 shadow-xl pb-5">
-              <div class="card-body">
+            <div className="card w-96 bg-base-100 shadow-xl pb-5">
+              <div className="card-body">
                 <p className="text-left mb-2">
                   It is a long established fact that by the readable content of
                   a lot layout. The point of using Lorem a more-or-less normal
                   distribu to using Content here, content
                 </p>
-                <div class="profile flex items-center">
-                  <div class="avatar">
-                    <div class="w-16 rounded-full ring ring-primary ring-offset-base-100 mr-5">
+                <div className="profile flex items-center">
+                  <div className="avatar">
+                    <div className="w-16 rounded-full ring ring-primary ring-offset-base-100 mr-5">
                       <img src={people3} alt="" />
                     </div>
                   </div>

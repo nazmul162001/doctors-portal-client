@@ -15,7 +15,7 @@ const ContactUs = () => {
 
   return (
     <section
-      style={{ background: `url(${appointment})`}}
+      style={{ background: `url(${appointment})` }}
       className="contact-us w-full h-full py-12"
     >
       <div className="text-center py-12">
@@ -40,9 +40,12 @@ const ContactUs = () => {
           type="email"
           name="email"
           placeholder="Your Email"
-          class="input input-bordered input-accent w-full max-w-xs"
+          className="input input-bordered input-accent w-full max-w-xs"
         />
-        <p className="text-white text-center lg:text-left pl-4"> {errors.email?.message} </p>
+        <p className="text-white text-center lg:text-left pl-4">
+          {' '}
+          {errors.email?.message}{' '}
+        </p>
         <br />
         <input
           {...register('subject', {
@@ -55,29 +58,34 @@ const ContactUs = () => {
           type="text"
           name="subject"
           placeholder="Subject"
-          class="input input-bordered input-accent w-full max-w-xs"
+          className="input input-bordered input-accent w-full max-w-xs"
         />
-        <p className="text-white text-center lg:text-left pl-4"> {errors.subject?.message} </p>
+        <p className="text-white text-center lg:text-left pl-4">
+          {' '}
+          {errors.subject?.message}{' '}
+        </p>
         <br />
         <textarea
           {...register('description', {
             required: 'Description is required',
             maxLength: {
               value: 180,
-              message:
-                "please describe your description within 180 character",
+              message: 'please describe your description within 180 character',
             },
           })}
-          class="textarea textarea-info w-full max-w-xs"
+          className="textarea textarea-info w-full max-w-xs"
           placeholder="Your message"
         ></textarea>
-        <p className="text-white text-center lg:text-left pl-4"> {errors.description?.message} </p>
+        <p className="text-white text-center lg:text-left pl-4">
+          {' '}
+          {errors.description?.message}{' '}
+        </p>
         <br />
         <input
           type="submit"
           value="Submit"
           placeholder="Subject"
-          class="input input-bordered input-accent btn bg-gradient-to-r from-secondary to-primary border-0 uppercase text-white font-bold"
+          className="input input-bordered input-accent btn bg-gradient-to-r from-secondary to-primary border-0 uppercase text-white font-bold"
         />
       </form>
     </section>

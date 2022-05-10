@@ -10,13 +10,13 @@ const ContactUs = () => {
     formState: { errors },
   } = useForm();
   const onSubmit = (data) => {
-    console.log(errors);
+    console.log(data);
   };
 
   return (
     <section
-      style={{ background: `url(${appointment})` }}
-      className="contact-us w-full h-full"
+      style={{ background: `url(${appointment})`}}
+      className="contact-us w-full h-full py-12"
     >
       <div className="text-center py-12">
         <h3 className="text-primary text-xl font-bold uppercase ">
@@ -27,7 +27,7 @@ const ContactUs = () => {
 
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="text-center w-1/4 mx-auto"
+        className="text-center w-full lg:w-1/4 mx-auto"
       >
         <input
           {...register('email', {
@@ -42,7 +42,7 @@ const ContactUs = () => {
           placeholder="Your Email"
           class="input input-bordered input-accent w-full max-w-xs"
         />
-        <p className="text-white text-left"> {errors.email?.message} </p>
+        <p className="text-white text-center lg:text-left pl-4"> {errors.email?.message} </p>
         <br />
         <input
           {...register('subject', {
@@ -57,7 +57,7 @@ const ContactUs = () => {
           placeholder="Subject"
           class="input input-bordered input-accent w-full max-w-xs"
         />
-        <p className="text-white text-left"> {errors.subject?.message} </p>
+        <p className="text-white text-center lg:text-left pl-4"> {errors.subject?.message} </p>
         <br />
         <textarea
           {...register('description', {
@@ -71,13 +71,13 @@ const ContactUs = () => {
           class="textarea textarea-info w-full max-w-xs"
           placeholder="Your message"
         ></textarea>
-        <p className="text-white text-left"> {errors.description?.message} </p>
+        <p className="text-white text-center lg:text-left pl-4"> {errors.description?.message} </p>
         <br />
         <input
           type="submit"
           value="Submit"
           placeholder="Subject"
-          class="input input-bordered input-accent btn bg-gradient-to-r from-secondary to-primary border-0 uppercase text-white font-bold my-5"
+          class="input input-bordered input-accent btn bg-gradient-to-r from-secondary to-primary border-0 uppercase text-white font-bold"
         />
       </form>
     </section>

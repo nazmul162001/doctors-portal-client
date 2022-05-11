@@ -4,7 +4,7 @@ import PrimaryButton from '../Shared/PrimaryButton';
 
 const Care = () => {
   return (
-    <div className="hero min-h-screen">
+    <div className="hero px-12">
       <div className="hero-content flex-col lg:flex-row px-0 lg:pl-28">
         <img src={treatment} className="max-w-sm rounded-lg shadow-2xl" />
         <div className="pl-0 md:p-16 lg:pl-16">

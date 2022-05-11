@@ -4,11 +4,12 @@ import PrimaryButton from '../Shared/PrimaryButton';
 
 const Banner = () => {
   return (
-    <div className="hero min-h-screen bg-[url('/src/assets/images/bg.png')]">
+    <div className="hero py-36 bg-[url('/src/assets/images/bg.png')]">
       <div className="hero-content flex-col lg:flex-row-reverse">
         <img
           src={chair}
           className="max-w-sm rounded-lg shadow-2xl"
+          alt=''
         />
         <div className='px-10 md:px-32 font-sans'>
           <h1 style={{color: '#3A4256'}} className="text-5xl font-bold">Your New Smile Starts Here</h1>

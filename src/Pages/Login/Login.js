@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   useSignInWithEmailAndPassword,
   useSignInWithGoogle,
@@ -16,7 +16,8 @@ const Login = () => {
     useSignInWithEmailAndPassword(auth);
 
   const navigate = useNavigate();
-
+  
+  
   const {
     register,
     formState: { errors },
@@ -29,6 +30,13 @@ const Login = () => {
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
 
+  useEffect(()=> {
+    if(user || gUser){
+      navigate(from, { replace: true });
+    }
+  },[user, gUser, from, navigate])
+  
+
   if (loading || gLoading) {
     return <Spinner />;
   }
@@ -39,10 +47,6 @@ const Login = () => {
         <p> {error?.message || gError?.message} </p>
       </small>
     );
-  }
-
-  if(user || gUser){
-    navigate(from, { replace: true });
   }
 
   // react hook form

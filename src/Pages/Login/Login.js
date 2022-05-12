@@ -6,7 +6,7 @@ import {
 import auth from '../../firebase.init';
 import { useForm } from 'react-hook-form';
 import Spinner from '../Shared/Spinner';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Login = () => {
   // google signIn
@@ -14,6 +14,8 @@ const Login = () => {
   // email & pass sign in
   const [signInWithEmailAndPassword, user, loading, error] =
     useSignInWithEmailAndPassword(auth);
+
+  const navigate = useNavigate();
 
   const {
     register,
@@ -40,6 +42,7 @@ const Login = () => {
   const onSubmit = (data) => {
     // console.log(data);
     signInWithEmailAndPassword(data.email, data.password);
+    navigate('/')
   };
 
   return (

@@ -3,9 +3,33 @@ import React from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { Link } from 'react-router-dom';
 import auth from '../../../firebase.init';
+import swal from 'sweetalert';
 
 const Navbar = () => {
   const [user, loading, error] = useAuthState(auth);
+
+
+  // handle sign out
+  const logout = (e) => {
+    swal({
+      title: "Are you sure?",
+      text: "You want to Log Out",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    })
+    .then((willDelete) => {
+      if (willDelete) {
+        swal("Log Out successful", {
+          icon: "success",
+        });
+          signOut(auth)
+      } else {
+        // swal("You are now Safe!");
+      }
+    });
+  }
+  
   
   const menuItems = (
     <>
@@ -31,7 +55,7 @@ const Navbar = () => {
       </li>
       <li>
         {' '}
-        {user ? <Link onClick={()=> signOut(auth)} className='btn btn-ghost' to="/">Logout</Link> :<Link to="/login">Login</Link>} {' '}
+        {user ? <Link onClick={logout} className='btn btn-ghost' to="/">Logout</Link> :<Link to="/login">Login</Link>} {' '}
       </li>
     </>
   );

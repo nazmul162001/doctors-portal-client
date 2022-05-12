@@ -1,18 +1,41 @@
 import React from 'react';
-import { useSignInWithGoogle } from 'react-firebase-hooks/auth';
+import {
+  useSignInWithEmailAndPassword,
+  useSignInWithGoogle,
+} from 'react-firebase-hooks/auth';
 import auth from '../../firebase.init';
 import { useForm } from 'react-hook-form';
+import Spinner from '../Shared/Spinner';
 
 const Login = () => {
   // google signIn
-  const [signInWithGoogle, user, loading, error] = useSignInWithGoogle(auth);
-  // react hook form
-  const onSubmit = (data) => console.log(data);
+  const [signInWithGoogle, gUser, gLoading, gError] = useSignInWithGoogle(auth);
+  // email & pass sign in
+  const [signInWithEmailAndPassword, user, loading, error] =
+    useSignInWithEmailAndPassword(auth);
+
   const {
     register,
     formState: { errors },
     handleSubmit,
   } = useForm();
+
+  // handle error
+  let signInError;
+
+  if (loading || gLoading) {
+    return <Spinner />
+  }
+
+  if (error || gError) {
+    signInError = <small><p> {error?.message || gError?.message} </p></small>;
+  }
+
+  // react hook form
+  const onSubmit = (data) => {
+    // console.log(data);
+    signInWithEmailAndPassword(data.email, data.password);
+  };
 
   return (
     <div className="flex justify-center items-center h-[calc(100vh-64px)]">
@@ -85,7 +108,7 @@ const Login = () => {
               </label>
             </div>
 
-            {/* {signInError} */}
+            {signInError}
             <input
               className="btn w-full max-w-xs text-white"
               type="submit"

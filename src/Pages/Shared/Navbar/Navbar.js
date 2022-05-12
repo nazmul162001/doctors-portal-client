@@ -1,7 +1,11 @@
 import React from 'react';
+import { useAuthState } from 'react-firebase-hooks/auth';
 import { Link } from 'react-router-dom';
+import auth from '../../../firebase.init';
 
 const Navbar = () => {
+  const [user, loading, error] = useAuthState(auth);
+  
   const menuItems = (
     <>
       <li>
@@ -26,7 +30,7 @@ const Navbar = () => {
       </li>
       <li>
         {' '}
-        <Link to="/login">Login</Link>{' '}
+        {user ? <Link className='btn btn-md text-white capitalize' to="/login">Logout</Link> :<Link to="/login">Login</Link>} {' '}
       </li>
     </>
   );

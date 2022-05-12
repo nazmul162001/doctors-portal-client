@@ -6,7 +6,7 @@ import {
 import auth from '../../firebase.init';
 import { useForm } from 'react-hook-form';
 import Spinner from '../Shared/Spinner';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 const Login = () => {
   // google signIn
@@ -26,6 +26,9 @@ const Login = () => {
   // handle error
   let signInError;
 
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
+
   if (loading || gLoading) {
     return <Spinner />;
   }
@@ -38,11 +41,14 @@ const Login = () => {
     );
   }
 
+  if(user || gUser){
+    navigate(from, { replace: true });
+  }
+
   // react hook form
   const onSubmit = (data) => {
     // console.log(data);
     signInWithEmailAndPassword(data.email, data.password);
-    navigate('/')
   };
 
   return (

@@ -20,29 +20,77 @@ const Login = () => {
         <div className="card-body">
           <h2 className="text-center text-2xl font-bold">Login</h2>
           <form onSubmit={handleSubmit(onSubmit)}>
-            <label class="label">
-              <span class="label-text">Email</span>
-            </label>
+            <div className="form-control w-full max-w-xs">
+              <label className="label">
+                <span className="label-text">Email</span>
+              </label>
+              <input
+                type="email"
+                placeholder="Your Email"
+                className="input input-bordered w-full max-w-xs"
+                {...register('email', {
+                  required: {
+                    value: true,
+                    message: 'Email is Required',
+                  },
+                  pattern: {
+                    value: /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/,
+                    message: 'Provide a valid Email',
+                  },
+                })}
+              />
+              <label className="label">
+                {errors.email?.type === 'required' && (
+                  <span className="label-text-alt text-red-500">
+                    {errors.email.message}
+                  </span>
+                )}
+                {errors.email?.type === 'pattern' && (
+                  <span className="label-text-alt text-red-500">
+                    {errors.email.message}
+                  </span>
+                )}
+              </label>
+            </div>
+            <div className="form-control w-full max-w-xs">
+              <label className="label">
+                <span className="label-text">Password</span>
+              </label>
+              <input
+                type="password"
+                placeholder="Password"
+                className="input input-bordered w-full max-w-xs"
+                {...register('password', {
+                  required: {
+                    value: true,
+                    message: 'Password is Required',
+                  },
+                  minLength: {
+                    value: 6,
+                    message: 'Must be 6 characters or longer',
+                  },
+                })}
+              />
+              <label className="label">
+                {errors.password?.type === 'required' && (
+                  <span className="label-text-alt text-red-500">
+                    {errors.password.message}
+                  </span>
+                )}
+                {errors.password?.type === 'minLength' && (
+                  <span className="label-text-alt text-red-500">
+                    {errors.password.message}
+                  </span>
+                )}
+              </label>
+            </div>
+
+            {/* {signInError} */}
             <input
-              type="email"
-              name="email"
-              placeholder="Type here"
-              class="input input-bordered w-full max-w-xs"
-              {...register('email', {
-                pattern: {
-                  value: /[A-Za-z]{3}/,
-                  message: 'error message',
-                },
-              })}
+              className="btn w-full max-w-xs text-white"
+              type="submit"
+              value="Login"
             />
-
-            {/* <input  /> */}
-            {errors.firstName?.type === 'required' && 'First name is required'}
-
-            <input {...register('lastName', { required: true })} />
-            {errors.lastName && 'Last name is required'}
-
-            <input type="submit" />
           </form>
           <div className="divider">OR</div>
           <button

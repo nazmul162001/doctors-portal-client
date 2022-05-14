@@ -53,6 +53,9 @@ const Navbar = () => {
         {' '}
         <Link to="/about">About</Link>{' '}
       </li>
+      {
+        user && <Link to="/dashboard">Dashboard</Link>
+      }
       <li>
         {' '}
         {user ? <Link onClick={logout} className='btn btn-ghost' to="/">Logout</Link> :<Link to="/login">Login</Link>} {' '}

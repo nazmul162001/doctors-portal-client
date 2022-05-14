@@ -6,22 +6,39 @@ import Login from './Pages/Login/Login';
 import RequireAuth from './Pages/Login/RequireAuth';
 import SignUp from './Pages/Login/SignUp';
 import Navbar from './Pages/Shared/Navbar/Navbar';
+// toast
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   return (
-    <div className='max-w-[1400px] mx-auto'>
+    <div className="max-w-[1400px] mx-auto">
       <Navbar></Navbar>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
-        <Route path='/appoinment' element={
-          <RequireAuth>
-            <Appointment></Appointment>
-          </RequireAuth>
-        }></Route>
-        <Route path='/signUP' element={<SignUp />}></Route>
-        <Route path='/login' element={<Login />}></Route>
+        <Route
+          path="/appoinment"
+          element={
+            <RequireAuth>
+              <Appointment></Appointment>
+            </RequireAuth>
+          }
+        ></Route>
+        <Route path="/signUP" element={<SignUp />}></Route>
+        <Route path="/login" element={<Login />}></Route>
       </Routes>
+      <ToastContainer
+        position="top-center"
+        autoClose={2000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </div>
   );
 }

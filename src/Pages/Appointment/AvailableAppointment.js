@@ -9,7 +9,7 @@ const AvailableAppointment = ({date}) => {
   const [treatment, setTreatment] = useState(null)
 
   const formattedDate = format(date, 'PP');
-  const {data: services, isLoading, refetch} = useQuery(['available', formattedDate], () => fetch('http://localhost:5000/service')
+  const {data: services, isLoading, refetch} = useQuery(['available', formattedDate], () => fetch(`http://localhost:5000/available?date=${formattedDate}`)
     .then(res => res.json()) 
     )
     if(isLoading){

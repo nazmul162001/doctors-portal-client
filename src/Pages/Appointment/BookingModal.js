@@ -41,8 +41,8 @@ const BookingModal = ({ treatment, date, setTreatment , refetch}) => {
         toast.error(`Already have an appointment on ${data.booking?.date} at ${data.booking?.slot}`)
       }
       // to close modal
-      refetch();
       setTreatment(null);
+      refetch();
     })
     
     
@@ -75,9 +75,8 @@ const BookingModal = ({ treatment, date, setTreatment , refetch}) => {
               className="select select-bordered w-full max-w-xs"
             >
               {slots.map((slot, index) => (
-                <option value={slot}>
-                  {' '}
-                  {slot} key={index}{' '}
+                <option key={index} value={slot}>
+                  {slot}
                 </option>
               ))}
             </select>

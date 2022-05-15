@@ -24,6 +24,7 @@ const Navbar = () => {
           icon: "success",
         });
           signOut(auth)
+          localStorage.removeItem('accessToken');
       } else {
         // swal("You are now Safe!");
       }

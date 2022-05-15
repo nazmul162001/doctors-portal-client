@@ -8,6 +8,7 @@ import auth from '../../firebase.init';
 import { useForm } from 'react-hook-form';
 import Spinner from '../Shared/Spinner';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
+import useToken from '../../hooks/useToken';
 
 const SignUp = () => {
   // google signIn
@@ -19,6 +20,8 @@ const SignUp = () => {
 
   // update user info
   const [updateProfile, updating, updateError] = useUpdateProfile(auth);
+
+  const [token] = useToken(user || gUser);
 
   const navigate = useNavigate();
 
@@ -37,13 +40,17 @@ const SignUp = () => {
     );
   }
 
+  if(token){
+    navigate('/appoinment')
+  }
+
   
   // react hook form
   const onSubmit = async(data) => {
     // console.log(data);
     await createUserWithEmailAndPassword(data.email, data.password);
     await updateProfile({ displayName: data.name });
-    navigate('/appoinment')
+    
   };
 
   return (

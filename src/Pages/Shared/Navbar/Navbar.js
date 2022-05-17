@@ -36,26 +36,26 @@ const Navbar = () => {
     <>
       <li>
         {' '}
-        <Link to="/">Home</Link>{' '}
+        <Link className='btn btn-ghost text-gray-600 font-sans' to="/">Home</Link>{' '}
       </li>
       <li>
         {' '}
-        <Link to="/appoinment">Appoinment</Link>{' '}
+        <Link className='btn btn-ghost text-gray-600 font-sans' to="/appoinment">Appoinment</Link>{' '}
       </li>
       <li>
         {' '}
-        <Link to="/review">Review</Link>{' '}
+        <Link className='btn btn-ghost text-gray-600 font-sans' to="/review">Review</Link>{' '}
       </li>
       <li>
         {' '}
-        <Link to="/contact">Contact</Link>{' '}
+        <Link className='btn btn-ghost text-gray-600 font-sans' to="/contact">Contact</Link>{' '}
       </li>
       <li>
         {' '}
-        <Link to="/about">About</Link>{' '}
+        <Link className='btn btn-ghost text-gray-600 font-sans' to="/about">About</Link>{' '}
       </li>
       {
-        user && <Link to="/dashboard">Dashboard</Link>
+        user && <Link className='btn btn-ghost text-gray-600 font-sans' to="/dashboard">Dashboard</Link>
       }
       <li>
         {' '}

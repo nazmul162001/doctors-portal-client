@@ -14,6 +14,8 @@ const AddDoctors = () => {
     fetch('http://localhost:5000/service').then((res) => res.json())
   );
 
+  const imgStorageKey='89d29568c83b987da3eead79658bc6ef'
+
   if (isLoading) {
     return <Spinner></Spinner>;
   }
@@ -21,6 +23,27 @@ const AddDoctors = () => {
   // react hook form
   const onSubmit = async (data) => {
     console.log(data);
+    const image = data.image[0];
+    const formData = new FormData();
+    formData.append('image', image);
+    const url = `https://api.imgbb.com/1/upload?key=${imgStorageKey}`
+    fetch(url, {
+      method: 'POST',
+      body: formData
+    })
+    .then(res => res.json())
+    .then(result => {
+      if(result.success){
+        const img = result.data.url
+        const doctor = {
+          name: data.name,
+          email: data.email,
+          specialization: data.specialization,
+          img: img
+        }
+        // send to your database
+      }
+    })
   };
 
   return (

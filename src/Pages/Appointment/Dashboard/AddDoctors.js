@@ -2,12 +2,13 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useQuery } from 'react-query';
 import Spinner from '../../Shared/Spinner';
+import { toast } from 'react-toastify';
 
 const AddDoctors = () => {
   const {
     register,
     formState: { errors },
-    handleSubmit,
+    handleSubmit, reset
   } = useForm();
 
   const { data: services, isLoading } = useQuery('services', () =>
@@ -42,6 +43,24 @@ const AddDoctors = () => {
           img: img
         }
         // send to your database
+        fetch('http://localhost:5000/doctor', {
+          method: 'POSt',
+          headers: {
+            'content-type': 'application/json',
+            authorization: `Bearer ${localStorage.getItem('accessToken')}`
+          },
+          body: JSON.stringify  (doctor)
+        })
+        .then(res=> res.json())
+        .then(inserted => {
+          if(inserted.insertedId){
+            toast.success('Doctors Successfully added')
+            reset();
+          }
+          else{
+            toast.error("Failed added doctors")
+          }
+        })
       }
     })
   };

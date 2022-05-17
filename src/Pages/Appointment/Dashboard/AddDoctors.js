@@ -136,7 +136,7 @@ const AddDoctors = () => {
         </div>
         <div className="form-control w-full ">
           <label className="label">
-            <span className="label-text">Specialization</span>
+            <span className="label-text">specialization</span>
           </label>
 
           <select

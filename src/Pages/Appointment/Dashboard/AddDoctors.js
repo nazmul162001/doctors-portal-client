@@ -1,14 +1,28 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import { useQuery } from 'react-query';
+import Spinner from '../../Shared/Spinner';
 
 const AddDoctors = () => {
-  const {register,formState: { errors },handleSubmit,} = useForm();
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+  } = useForm();
 
-    // react hook form
-    const onSubmit = async(data) => {
-      // console.log(data);
-    };
-  
+  const { data: services, isLoading } = useQuery('services', () =>
+    fetch('http://localhost:5000/service').then((res) => res.json())
+  );
+
+  if (isLoading) {
+    return <Spinner></Spinner>;
+  }
+
+  // react hook form
+  const onSubmit = async (data) => {
+    console.log(data);
+  };
+
   return (
     <div>
       <h2 className="text-2xl">Add a new Doctor</h2>
@@ -82,30 +96,44 @@ const AddDoctors = () => {
           <label className="label">
             <span className="label-text">Specialization</span>
           </label>
+
+          <select
+            {...register('specialization')}
+            class="select w-full max-w-xs"
+          >
+            {
+              services.map(service => <option
+              key={service._id}
+              value={service.name}
+              >{service.name}</option>)
+            }
+          </select>
+        </div>
+          {/* get photo  */}
+        <div className="form-control w-full ">
+          <label className="label">
+            <span className="label-text">Photo</span>
+          </label>
           <input
-            type="text"
-            placeholder="Specialization"
+            type="file"
             className="input input-bordered w-full " //max-w-xs
-            {...register('specialization', {
+            {...register('image', {
               required: {
                 value: true,
-                message: 'Specialization is Required',
+                message: 'image is Required',
               },
             })}
           />
           <label className="label">
-            {errors.specialization?.type === 'required' && (
+            {errors.image?.type === 'required' && (
               <span className="label-text-alt text-red-500">
-                {errors.specialization.message}
-              </span>
-            )}
-            {errors.specialization?.type === 'minLength' && (
-              <span className="label-text-alt text-red-500">
-                {errors.specialization.message}
+                {errors.image.message}
               </span>
             )}
           </label>
         </div>
+        
+        
         <input
           className="btn w-full  text-white" //max-w-xs
           type="submit"

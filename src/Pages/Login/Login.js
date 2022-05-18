@@ -63,6 +63,11 @@ const Login = () => {
       <div className="card w-full md:w-1/2 lg:w-1/3 bg-base-100 shadow-xl">
         <div className="card-body">
           <h2 className="text-center text-2xl font-bold">Login</h2>
+          <p className="italic text-gray-400 text-left border-2 p-2">
+            <strong>Want to get Dashboard Admin access? Login --</strong> <br />
+            Email: test.project@gmail.com <br />
+            pass: 112233
+          </p>
           <form className="w-full" onSubmit={handleSubmit(onSubmit)}>
             <div className="form-control w-full ">
               <label className="label">

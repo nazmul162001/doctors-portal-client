@@ -1,31 +1,32 @@
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
 import React, { useEffect, useState } from 'react';
 
-const CheckoutForm = ({appointment}) => {
+const CheckoutForm = ({ appointment }) => {
   const stripe = useStripe();
   const elements = useElements();
   const [cardError, setCardError] = useState('');
+  const [success, setSuccess] = useState('');
   const [clientSecret, setClientSecret] = useState('');
+  const [transactionId, setTransactionId] = useState('');
 
-  const {price} = appointment;
+  const { price, patient, patientName , _id} = appointment;
 
-  useEffect(()=> {
+  useEffect(() => {
     fetch('http://localhost:5000/create-payment-intent', {
       method: 'POST',
       headers: {
         'content-type': 'application/json',
-        'authorization': `Bearer ${localStorage.getItem('accessToken')}`
+        'authorization': `Bearer ${localStorage.getItem('accessToken')}`,
       },
-      body: JSON.stringify({price})
-
+      body: JSON.stringify({ price })
     })
-    .then(res => res.json())
-    .then(data => {
-      if(data?.clientSecret){
-        setClientSecret(data.clientSecret);
-      }
-    })
-  },[price])
+      .then(res => res.json())
+      .then(data => {
+        if (data?.clientSecret) {
+          setClientSecret(data.clientSecret);
+        }
+      });
+  }, [price]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -39,11 +40,43 @@ const CheckoutForm = ({appointment}) => {
 
     const { error, paymentMethod } = await stripe.createPaymentMethod({
       type: 'card',
-      card,
+      card
     });
 
+    // setCardError(error?.message || '');
+    // setTransactionId(paymentIntent.id);
+    // setSuccess('Congrats! Your payment is completed');
+
+    // confirm card payment
+    const { paymentIntent, error: intentError } = await stripe.confirmCardPayment(
+      clientSecret,
+      {
+        payment_method: {
+          card: card,
+          billing_details: {
+            name: patientName,
+            email: patient
+          },
+        },
+      },
+    );
+
+
     setCardError(error?.message || '');
-  };
+    setTransactionId(paymentIntent.id);
+    setSuccess('Congrats! Your payment is completed');
+    
+
+    if (intentError) {
+      setCardError(intentError?.message);
+      
+    } else {
+      setCardError('');
+      setTransactionId(paymentIntent.id)
+      console.log(paymentIntent);
+      setSuccess(' Congrats! Your payment is completed');
+    }
+  }
 
   return (
     <>
@@ -64,7 +97,8 @@ const CheckoutForm = ({appointment}) => {
             },
           }}
         />
-        <p className="italic text-red-500 mt-4"> {cardError} </p>
+        {/* <p className="italic text-red-500 mt-4"> {cardError} </p>
+        <p className="italic text-green-400 mt-4"> {success} </p> */}
         <button
           className="btn btn-sm mt-4 px-5"
           type="submit"
@@ -73,6 +107,15 @@ const CheckoutForm = ({appointment}) => {
           Pay
         </button>
       </form>
+      {
+        cardError && <p className='text-red-500'>{cardError}</p>
+      }
+      {
+        success && <div className='text-green-500'>
+          <p>{success}</p>
+          <p>Your Transaction id: <span className="text-orange-500 font-bold">{transactionId}</span></p>
+          </div>
+      }
     </>
   );
 };

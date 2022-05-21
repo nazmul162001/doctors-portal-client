@@ -42,8 +42,8 @@ const DoctorsRow = ({ doctor, index, refetch }) => {
     <tr>
       <th>{index + 1}</th>
       <td>
-        <div class="avatar">
-          <div class="w-16 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+        <div className="avatar">
+          <div className="w-16 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
             <img src={img} alt="" />
           </div>
         </div>

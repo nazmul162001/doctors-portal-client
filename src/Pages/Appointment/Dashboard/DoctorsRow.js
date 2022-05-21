@@ -18,7 +18,7 @@ const DoctorsRow = ({ doctor, index, refetch }) => {
           icon: 'success',
         });
 
-        fetch(`http://localhost:5000/doctor/${email}`, {
+        fetch(`https://nameless-cove-43525.herokuapp.com/doctor/${email}`, {
           method: 'DELETE',
           headers: {
             authorization: `Bearer ${localStorage.getItem('accessToken')}`,

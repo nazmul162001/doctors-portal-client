@@ -10,19 +10,19 @@ const CheckoutForm = ({ appointment }) => {
   const [clientSecret, setClientSecret] = useState('');
   const [transactionId, setTransactionId] = useState('');
 
-  const { price, patient, patientName , _id} = appointment;
+  const { price, patient, patientName, _id } = appointment;
 
   useEffect(() => {
-    fetch('http://localhost:5000/create-payment-intent', {
+    fetch('https://nameless-cove-43525.herokuapp.com/create-payment-intent', {
       method: 'POST',
       headers: {
         'content-type': 'application/json',
-        'authorization': `Bearer ${localStorage.getItem('accessToken')}`,
+        authorization: `Bearer ${localStorage.getItem('accessToken')}`,
       },
-      body: JSON.stringify({ price })
+      body: JSON.stringify({ price }),
     })
-      .then(res => res.json())
-      .then(data => {
+      .then((res) => res.json())
+      .then((data) => {
         if (data?.clientSecret) {
           setClientSecret(data.clientSecret);
         }
@@ -41,62 +41,56 @@ const CheckoutForm = ({ appointment }) => {
 
     const { error, paymentMethod } = await stripe.createPaymentMethod({
       type: 'card',
-      card
+      card,
     });
 
-
-
     // confirm card payment
-    const { paymentIntent, error: intentError } = await stripe.confirmCardPayment(
-      clientSecret,
-      {
+    const { paymentIntent, error: intentError } =
+      await stripe.confirmCardPayment(clientSecret, {
         payment_method: {
           card: card,
           billing_details: {
             name: patientName,
-            email: patient
+            email: patient,
           },
         },
-      },
-    );
-
+      });
 
     setCardError(error?.message || '');
     setTransactionId(paymentIntent.id);
     setSuccess('Congrats! Your payment is completed');
     setProcessing(true);
-    
 
     if (intentError) {
       setCardError(intentError?.message);
       setProcessing(false);
-      
     } else {
       setCardError('');
-      setTransactionId(paymentIntent.id)
+      setTransactionId(paymentIntent.id);
       console.log(paymentIntent);
       setSuccess(' Congrats! Your payment is completed');
 
       // store payment on database
       const payment = {
         appointment: _id,
-        transactionId: paymentIntent.id
-      }
-      
-      fetch(`http://localhost:5000/booking/${_id}`, {
+        transactionId: paymentIntent.id,
+      };
+
+      fetch(`https://nameless-cove-43525.herokuapp.com/booking/${_id}`, {
         method: 'PATCH',
         headers: {
           'content-type': 'application/json',
-          'authorization': `Bearer ${localStorage.getItem('accessToken')}`
+          authorization: `Bearer ${localStorage.getItem('accessToken')}`,
         },
-        body: JSON.stringify(payment)
-      }).then(res=> res.json())
-      .then(data => {
-        setProcessing(false);
-        console.log(data)
+        body: JSON.stringify(payment),
       })
+        .then((res) => res.json())
+        .then((data) => {
+          setProcessing(false);
+          console.log(data);
+        });
     }
-  }
+  };
 
   return (
     <>
@@ -127,15 +121,16 @@ const CheckoutForm = ({ appointment }) => {
           Pay
         </button>
       </form>
-      {
-        cardError && <p className='text-red-500'>{cardError}</p>
-      }
-      {
-        success && <div className='text-green-500'>
+      {cardError && <p className="text-red-500">{cardError}</p>}
+      {success && (
+        <div className="text-green-500">
           <p>{success}</p>
-          <p>Your Transaction id: <span className="text-orange-500 font-bold">{transactionId}</span></p>
-          </div>
-      }
+          <p>
+            Your Transaction id:{' '}
+            <span className="text-orange-500 font-bold">{transactionId}</span>
+          </p>
+        </div>
+      )}
     </>
   );
 };

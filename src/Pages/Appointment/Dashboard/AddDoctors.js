@@ -8,14 +8,17 @@ const AddDoctors = () => {
   const {
     register,
     formState: { errors },
-    handleSubmit, reset
+    handleSubmit,
+    reset,
   } = useForm();
 
   const { data: services, isLoading } = useQuery('services', () =>
-    fetch('http://localhost:5000/service').then((res) => res.json())
+    fetch('https://nameless-cove-43525.herokuapp.com/service').then((res) =>
+      res.json()
+    )
   );
 
-  const imgStorageKey='89d29568c83b987da3eead79658bc6ef'
+  const imgStorageKey = '89d29568c83b987da3eead79658bc6ef';
 
   if (isLoading) {
     return <Spinner></Spinner>;
@@ -27,42 +30,41 @@ const AddDoctors = () => {
     const image = data.image[0];
     const formData = new FormData();
     formData.append('image', image);
-    const url = `https://api.imgbb.com/1/upload?key=${imgStorageKey}`
+    const url = `https://api.imgbb.com/1/upload?key=${imgStorageKey}`;
     fetch(url, {
       method: 'POST',
-      body: formData
+      body: formData,
     })
-    .then(res => res.json())
-    .then(result => {
-      if(result.success){
-        const img = result.data.url
-        const doctor = {
-          name: data.name,
-          email: data.email,
-          specialization: data.specialization,
-          img: img
+      .then((res) => res.json())
+      .then((result) => {
+        if (result.success) {
+          const img = result.data.url;
+          const doctor = {
+            name: data.name,
+            email: data.email,
+            specialization: data.specialization,
+            img: img,
+          };
+          // send to your database
+          fetch('https://nameless-cove-43525.herokuapp.com/doctor', {
+            method: 'POSt',
+            headers: {
+              'content-type': 'application/json',
+              authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+            },
+            body: JSON.stringify(doctor),
+          })
+            .then((res) => res.json())
+            .then((inserted) => {
+              if (inserted.insertedId) {
+                toast.success('Doctors Successfully added');
+                reset();
+              } else {
+                toast.error('Failed added doctors');
+              }
+            });
         }
-        // send to your database
-        fetch('http://localhost:5000/doctor', {
-          method: 'POSt',
-          headers: {
-            'content-type': 'application/json',
-            authorization: `Bearer ${localStorage.getItem('accessToken')}`
-          },
-          body: JSON.stringify  (doctor)
-        })
-        .then(res=> res.json())
-        .then(inserted => {
-          if(inserted.insertedId){
-            toast.success('Doctors Successfully added')
-            reset();
-          }
-          else{
-            toast.error("Failed added doctors")
-          }
-        })
-      }
-    })
+      });
   };
 
   return (
@@ -143,15 +145,14 @@ const AddDoctors = () => {
             {...register('specialization')}
             class="select w-full max-w-xs"
           >
-            {
-              services.map(service => <option
-              key={service._id}
-              value={service.name}
-              >{service.name}</option>)
-            }
+            {services.map((service) => (
+              <option key={service._id} value={service.name}>
+                {service.name}
+              </option>
+            ))}
           </select>
         </div>
-          {/* get photo  */}
+        {/* get photo  */}
         <div className="form-control w-full ">
           <label className="label">
             <span className="label-text">Photo</span>
@@ -174,8 +175,7 @@ const AddDoctors = () => {
             )}
           </label>
         </div>
-        
-        
+
         <input
           className="btn w-full  text-white" //max-w-xs
           type="submit"

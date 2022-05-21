@@ -6,7 +6,7 @@ const CheckoutForm = ({ appointment }) => {
   const elements = useElements();
   const [cardError, setCardError] = useState('');
   const [success, setSuccess] = useState('');
-  const [processing, setProcessing] = useState(false);
+  // const [processing, setProcessing] = useState(false);
   const [clientSecret, setClientSecret] = useState('');
   const [transactionId, setTransactionId] = useState('');
 
@@ -46,7 +46,7 @@ const CheckoutForm = ({ appointment }) => {
 
     setCardError(error?.message || '');
     setSuccess('Congrats! Your payment is completed');
-    setProcessing(true);
+    // setProcessing(true);
 
     // confirm card payment
     const { paymentIntent, error: intentError } =
@@ -67,7 +67,7 @@ const CheckoutForm = ({ appointment }) => {
 
     if (intentError) {
       setCardError(intentError?.message);
-      setProcessing(false);
+      // setProcessing(false);
     } else {
       setCardError('');
       setTransactionId(paymentIntent.id);
@@ -84,13 +84,13 @@ const CheckoutForm = ({ appointment }) => {
         method: 'PATCH',
         headers: {
           'content-type': 'application/json',
-          'authorization': `Bearer ${localStorage.getItem('accessToken')}`,
+          authorization: `Bearer ${localStorage.getItem('accessToken')}`,
         },
         body: JSON.stringify(payment),
       })
         .then((res) => res.json())
         .then((data) => {
-          setProcessing(false);
+          // setProcessing(false);
           console.log(data);
         });
     }

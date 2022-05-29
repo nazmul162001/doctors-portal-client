@@ -16,7 +16,7 @@ import Users from './Pages/Appointment/Dashboard/Users';
 import RequireAdmin from './Pages/Login/RequireAdmin';
 import AddDoctors from './Pages/Appointment/Dashboard/AddDoctors';
 import ManageDoctors from './Pages/Appointment/Dashboard/ManageDoctors';
-import Payment from './Pages/Appointment/Dashboard/Payment';
+import Payment from './Pages/Appointment/Dashboard/Payment';  
 
 function App() {
   return (
